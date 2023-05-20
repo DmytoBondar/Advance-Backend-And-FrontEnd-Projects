@@ -1,9 +1,9 @@
 import express, {Application} from 'express';
 import cors from 'cors';
 import userRoutes from './app/modules/user/user.route';
-
+import dotenv from 'dotenv';
 const app: Application = express();
-
+dotenv.config();
 //middleware
 app.use(express.json());
 app.use(cors());
