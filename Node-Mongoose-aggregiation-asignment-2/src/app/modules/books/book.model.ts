@@ -32,12 +32,17 @@ const bookSchema = new Schema({
             required: true,
         },
         location: {
-            type: String,
-            required: true,
+
         }
     }],
-    rating: Number,
-    price: Number
+    rating: {
+        type: Number,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    }
 });
 
 const Book = model("Book", bookSchema);

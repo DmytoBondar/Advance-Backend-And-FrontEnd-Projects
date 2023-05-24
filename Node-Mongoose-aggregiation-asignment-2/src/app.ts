@@ -1,7 +1,7 @@
 import express, { Application, ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
+import booksRoutes from './app/modules/books/book.route';
 const app: Application = express();
 dotenv.config();
 //middleware
@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req: Request, res: Response) => {
     res.send("Database has been working");
 });
+app.use('/api/v1/books', booksRoutes)
 
 app.use((err:any, req:Request, res:Response, next:NextFunction) => {
     const errorStatus = err.status || 500;
