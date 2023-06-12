@@ -1,6 +1,6 @@
 import express, { Application, ErrorRequestHandler, NextFunction, Request, Response } from 'express'
-import cors from 'cors'
-import userRouter from './app/modules/users/users.route'
+import cors from 'cors';
+import router from './app/modules/routes';
 
 interface Error {
   name: string;
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', () => {
   console.log('working well')
 })
-app.use('/api/v1/users/', userRouter);
+app.use('/api/v1', router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const errorStatus = err.status || 500;

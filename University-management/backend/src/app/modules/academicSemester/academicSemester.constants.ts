@@ -1,4 +1,4 @@
-import { IAcademicSemesterTitle, IAcademicSemesterMonths } from "./academicSemester.inteface";
+import { IAcademicSemesterTitle, IAcademicSemesterMonths, IAcademicSemesterCode } from "./academicSemester.inteface";
 
 export const academicSemesterTitles: IAcademicSemesterTitle[] = ['Autumn', 'Summer', 'Fall']
 export const academicSemesterMonths: IAcademicSemesterMonths[] = ['January'
@@ -13,6 +13,7 @@ export const academicSemesterMonths: IAcademicSemesterMonths[] = ['January'
     , 'October'
     , 'November']
 
+export const academicSemesterCode:IAcademicSemesterCode[] = ['01', '02', '03']
 
 export const academicSemesterTitleCodeMapper: {
     [key: string]: string;
