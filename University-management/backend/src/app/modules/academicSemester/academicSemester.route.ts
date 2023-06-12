@@ -7,7 +7,10 @@ router.post('/create-semester',
 // validationRequest(AcademicSemesterValidation.createAcademicSemesterZodSchema), 
 AcademicSemesterController.createSemester);
 
-//Get Single Route
-router.get('/', AcademicSemesterController.getAllSemester)
+
+router.get('/:id', AcademicSemesterController.getSemesterById);
+router.get('/', AcademicSemesterController.getAllSemester);
+router.delete('/:id', AcademicSemesterController.deleteSemesterById);
+router.patch('/:id', AcademicSemesterController.updateSemester);
 
 export const AcademicSemesterRoutes = router;
