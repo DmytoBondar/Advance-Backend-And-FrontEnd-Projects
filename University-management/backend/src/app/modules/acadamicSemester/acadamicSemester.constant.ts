@@ -17,3 +17,9 @@ export const academicStartMonth: IAcademicSemesterMonths[] = [
     , 'November'
     , 'December'
 ]
+
+export const AcademicSemesterMapper: { [key: string]: string } = {
+    Autumn: '01',
+    Fall: '02',
+    Summer: '03',
+}
