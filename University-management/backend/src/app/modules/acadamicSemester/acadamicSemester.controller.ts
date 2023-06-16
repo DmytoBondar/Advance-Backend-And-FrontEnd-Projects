@@ -19,7 +19,7 @@ const createAcademicSemester = catchAsync(async (req, res) => {
 
 const GetAllAcademicSemester =
     catchAsync(async (req, res) => {
-        const search = pick(req.query, ['search']);
+        const search = pick(req.query, ['search', 'title', 'code', 'year']);
         const pagination = pick(req.query, paginationField);
         const result = await AcademicService.getAllAcademicSemester(pagination, search);
         sendResponse<IAcademicSemester[]>(res, {

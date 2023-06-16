@@ -19,7 +19,8 @@ type ISearchInterface = {
 }
 const getAllAcademicSemester = async (payload: IPaginationOptions, searchTerm: ISearchInterface): Promise<IGenericResponse<IAcademicSemester[]>> => {
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(payload)
-    const { search } = searchTerm;
+    const { search, ...filterableValue } = searchTerm;
+
 
     const andCondition = [];
     const searchableFeild = ['title', 'code', 'year'];
@@ -34,12 +35,23 @@ const getAllAcademicSemester = async (payload: IPaginationOptions, searchTerm: I
             }))
         })
     }
+    if (Object.keys(filterableValue).length) {
+        andCondition.push({
+            $and: Object.entries(filterableValue).map(([field, value]) => (
+                {
+                    [field]: value
+                }
+            ))
+        })
+    }
 
     const sortCondition: { [key: string]: SortOrder } = {};
     if (sortBy && sortOrder) {
         sortCondition[sortBy] = sortOrder;
     }
-    const result = await AcademicSemester.find({ $and: andCondition }).sort(sortCondition).skip(skip).limit(limit);
+    const whereCondition = andCondition.length > 0 ? { $and: andCondition }: {};
+    
+    const result = await AcademicSemester.find(whereCondition).sort(sortCondition).skip(skip).limit(limit);
     const total = await AcademicSemester.countDocuments();
     return {
         meta: {
