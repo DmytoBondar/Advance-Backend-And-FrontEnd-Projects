@@ -19,8 +19,9 @@ const createAcademicSemester = catchAsync(async (req, res) => {
 
 const GetAllAcademicSemester =
     catchAsync(async (req, res) => {
+        const search = pick(req.query, ['search']);
         const pagination = pick(req.query, paginationField);
-        const result = await AcademicService.getAllAcademicSemester(pagination);
+        const result = await AcademicService.getAllAcademicSemester(pagination, search);
         sendResponse<IAcademicSemester[]>(res, {
             success: true,
             statusCode: 200,
