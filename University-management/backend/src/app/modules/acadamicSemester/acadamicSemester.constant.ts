@@ -23,3 +23,5 @@ export const AcademicSemesterMapper: { [key: string]: string } = {
     Fall: '02',
     Summer: '03',
 }
+export const searchTermsOptions = ['search', 'title', 'code', 'year']
+export const searchableFieldsList = ['title', 'code', 'year']

@@ -2,28 +2,25 @@ import { SortOrder } from "mongoose";
 import ApiError from "../../../errors/ApiErrors";
 import { paginationHelper } from "../../../helpers/paginationHelper";
 import { IGenericResponse, IPaginationOptions } from "../../../interfaces/pagination";
-import { AcademicSemesterMapper } from "./acadamicSemester.constant";
-import { IAcademicSemester } from "./acadamicSemester.interface";
+import { AcademicSemesterMapper, searchableFieldsList } from "./acadamicSemester.constant";
+import { IAcademicSemester, ISearchInterface } from "./acadamicSemester.interface";
 import { AcademicSemester } from "./acadamicSemester.model";
 
 const createSemester = async (payload: IAcademicSemester): Promise<IAcademicSemester> => {
-
     if (AcademicSemesterMapper[payload.title] !== payload.code) {
         throw new ApiError(409, "Could'nt mistach title and code!")
     }
     const result = await AcademicSemester.create(payload);
     return result;
 }
-type ISearchInterface = {
-    search?: string;
-}
+
 const getAllAcademicSemester = async (payload: IPaginationOptions, searchTerm: ISearchInterface): Promise<IGenericResponse<IAcademicSemester[]>> => {
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(payload)
     const { search, ...filterableValue } = searchTerm;
 
 
     const andCondition = [];
-    const searchableFeild = ['title', 'code', 'year'];
+    const searchableFeild = searchableFieldsList;
 
     if (search) {
         andCondition.push({
@@ -44,13 +41,12 @@ const getAllAcademicSemester = async (payload: IPaginationOptions, searchTerm: I
             ))
         })
     }
-
     const sortCondition: { [key: string]: SortOrder } = {};
     if (sortBy && sortOrder) {
         sortCondition[sortBy] = sortOrder;
     }
     const whereCondition = andCondition.length > 0 ? { $and: andCondition }: {};
-    
+
     const result = await AcademicSemester.find(whereCondition).sort(sortCondition).skip(skip).limit(limit);
     const total = await AcademicSemester.countDocuments();
     return {
@@ -62,10 +58,6 @@ const getAllAcademicSemester = async (payload: IPaginationOptions, searchTerm: I
         data: result,
     };
 }
-
-
-
-
 const getByIdAcademicSemester = async (id: string): Promise<IAcademicSemester | null> => {
     const result = await AcademicSemester.findById(id);
     return result;
@@ -92,5 +84,4 @@ export const AcademicService = {
     getByIdAcademicSemester,
     deleteAcademicSemester,
     updateAcademicSemester
-
 }
