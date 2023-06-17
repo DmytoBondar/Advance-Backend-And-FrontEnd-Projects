@@ -1,0 +1,1 @@
+export const AcadamicDepartmentFilterFeild = ['searchTerm', 'title']
