@@ -37,7 +37,7 @@ const getAllAcadamicDepartment = async(
     }
     const whereCondtion = andCondtion.length > 0 ? {$and: andCondtion} : {};
     const result = await AcademicDepartmentModel.find(whereCondtion)
-    .populate('faculty')
+    .populate('acadamicFaculty')
     .sort(sortCondtion)
     .skip(skip)
     .limit(limit)
@@ -51,7 +51,7 @@ const getAllAcadamicDepartment = async(
     };
 }
 const createAcadamicDeparMent = async(payload: IAcadamicDepartment): Promise<IAcadamicDepartment | null> => {
-    const result = (await AcademicDepartmentModel.create(payload)).populate('faculty');
+    const result = (await AcademicDepartmentModel.create(payload)).populate('acadamicFaculty');
     return result;
 }
 const getSingleAcadamicDepartment = async(payload: string): Promise<IAcadamicDepartment | null> => {
