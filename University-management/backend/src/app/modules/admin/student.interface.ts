@@ -42,11 +42,3 @@ export type IStudent = {
     profileImage?: string;
 }
 export type IStudentModel = Model<IStudent, Record<string, unknown>>;
-
-export type IStudentFilter = {
-    searchTerm?: string;
-    id?: string;
-    blood?: string;
-    email?: string;
-    contactNo?: string;
-}

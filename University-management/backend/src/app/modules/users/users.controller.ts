@@ -16,6 +16,12 @@ const createStudent: RequestHandler = catchAsync(
     data: result,
   })
 })
+
+const createAdmin: RequestHandler = catchAsync(
+  async(req, res) => {
+
+  }
+)
 export const UserController =  {
   createStudent,
 }
