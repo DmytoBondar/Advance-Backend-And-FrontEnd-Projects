@@ -1,7 +1,5 @@
 import { Model, Schema, model } from 'mongoose'
-import { IUser } from './users.interface'
-
-type UserModel = Model<IUser, object>
+import { IUser, UserModel } from './users.interface'
 
 const userSchema = new Schema<IUser>({
   id: {
@@ -17,10 +15,10 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-  // student: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Student',
-  // }
+  student: {
+    type: Schema.Types.ObjectId,
+    ref: 'student',
+  }
 },
 {
   timestamps: true,

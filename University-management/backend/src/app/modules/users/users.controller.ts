@@ -1,23 +1,21 @@
-import { Response, Request } from 'express'
-import usersService from './users.service'
+import catchAsync from '../../../shared/catchAsync'
+import { UserService } from './users.service';
+import sendResponse from '../../../shared/sendResponse';
+import { RequestHandler } from 'express';
+import { IUser } from './users.interface';
 
-export const createUserControl = async (req: Request, res: Response) => {
-  try {
-    const { user } = req.body
-    const data = await usersService.createUserService(user)
+const createStudent: RequestHandler = catchAsync(
+  async(req, res) => {
+  const {student, ...userData} = req.body;
+  const result = await UserService.createStudentService(student, userData);
 
-    res.status(200).json({
-      success: true,
-      message: 'User Successfuly created!!',
-      data: data,
-    })
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: 'User failed to created!!',
-    })
-  }
-}
-export default {
-  createUserControl,
+  sendResponse<IUser>(res, {
+    statusCode: 200,
+    message: "User Successfully Craeted!!",
+    success: true,
+    data: result,
+  })
+})
+export const UserController =  {
+  createStudent,
 }
