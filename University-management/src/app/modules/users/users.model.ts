@@ -1,4 +1,4 @@
-import { Model, Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { IUser, UserModel } from './users.interface'
 
 const userSchema = new Schema<IUser>({
@@ -22,13 +22,17 @@ const userSchema = new Schema<IUser>({
   admin: {
     type: Schema.Types.ObjectId,
     ref: 'admin',
+  },
+  faculty: {
+    type: Schema.Types.ObjectId,
+    ref: 'facultiesUser'
   }
 },
-{
-  timestamps: true,
-  toJSON: {
-    virtuals: true,
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    }
   }
-}
 )
 export const User = model<IUser, UserModel>('User', userSchema)
