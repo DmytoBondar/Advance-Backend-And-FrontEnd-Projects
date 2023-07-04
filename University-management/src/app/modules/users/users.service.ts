@@ -152,8 +152,15 @@ const createFacultyService = async (faculty: IFacultiesUser, user: IUser): Promi
   return facultyAllData;
 }
 
+
+const getAllUser = async():Promise<IUser[] | null> => {
+  const result = await User.find()
+  return result;
+}
+
 export const UserService = {
   createStudentService,
   createAdminService,
-  createFacultyService
+  createFacultyService,
+  getAllUser
 }

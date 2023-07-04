@@ -34,7 +34,6 @@ const loginUser = async (payload: ILoggedInUser): Promise<ILoginResponse> => {
     }
 }
 
-
 const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
     let verifiedToken = null;
     try {
@@ -42,7 +41,6 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
             token,
             config.refreshSecret as Secret
         );
-
     } catch (err) {
         throw new ApiError(403, 'Invalid Refresh Token');
     }
@@ -51,17 +49,17 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
     if (!isUserExist) {
         throw new ApiError(403, 'User does not exist');
     }
-    const newAccessToken = JWTHelpers.createAccessToken(
+    const newRefreshToken = JWTHelpers.createAccessToken(
         {
-            id: isUserExist.id,
+            userId: isUserExist.id,
             role: isUserExist.role,
         },
-        config.secret as Secret,
+        config.refreshSecret as Secret,
         config.expiresIn as string
     );
 
     return {
-        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
     };
 };
 export const AuthService = {

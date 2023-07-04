@@ -50,8 +50,7 @@ UserSchema.statics.isPasswordMatched = async function (givenPassword: string, sa
 }
 
 UserSchema.pre('save', async function (next) {
-  let user = this;
-  user.password = await bcrypt.hash(user.password, Number(config.saltRound));
+  this.password = await bcrypt.hash(this.password, Number(config.saltRound));
   next();
 })
 

@@ -20,14 +20,13 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     sendResponse<ILoginResponse>(res, {
         statusCode: 200,
         success: true,
-        message: 'User lohggedin successfully !',
+        message: 'User logged in successfully !',
         data: others,
     });
 });
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
     const { refreshToken } = req.cookies;
-
     const result = await AuthService.refreshToken(refreshToken);
 
     const cookieOptions = {

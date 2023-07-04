@@ -43,8 +43,21 @@ const createFaculty: RequestHandler = catchAsync(
     })
   }
 )
+
+
+const getAllUsers: RequestHandler = catchAsync(
+  async (req, res) => {
+    const result = await UserService.getAllUser();
+    sendResponse<IUser[]>(res, {
+      statusCode: 200,
+      message: "Successfully Retrieve all the user !!",
+      success: true,
+      data: result,
+    })
+  })
 export const UserController = {
   createStudent,
   createAdmin,
-  createFaculty
+  createFaculty,
+  getAllUsers
 }

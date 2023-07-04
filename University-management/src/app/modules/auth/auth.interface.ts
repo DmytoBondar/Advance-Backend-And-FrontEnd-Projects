@@ -12,7 +12,7 @@ export type ILoginResponse = {
 }
 
 export type IRefreshTokenResponse = {
-    accessToken: string;
+    refreshToken: string;
 }
 
 export type IVerifiedLoginUser = {
