@@ -14,6 +14,10 @@ export type ILoginResponse = {
 export type IRefreshTokenResponse = {
     refreshToken: string;
 }
+export type IPassword = {
+    oldPassword: string;
+    changePassword: string;
+}
 
 export type IVerifiedLoginUser = {
     userId: string;

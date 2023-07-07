@@ -44,7 +44,19 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const updatePassword = catchAsync(async(req, res) => {
+    const {...passwordInfo} = req.body;
+    const user = req.user;
+    const result = await AuthService.updatePassword(user,passwordInfo);
+    sendResponse<IRefreshTokenResponse>(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Successfully Password Udpated !'
+    });
+})
+
 export const AuthController = {
     loginUser,
-    refreshToken
+    refreshToken,
+    updatePassword
 }

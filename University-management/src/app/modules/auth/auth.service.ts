@@ -1,9 +1,9 @@
 import { JWTHelpers } from './../../../helpers/jwtHelpers';
-import { Secret } from "jsonwebtoken";
+import { JwtPayload, Secret } from "jsonwebtoken";
 import config from "../../../config";
 import ApiError from "../../../errors/ApiErrors";
 import { User } from "../users/users.model";
-import { ILoggedInUser, ILoginResponse, IRefreshTokenResponse } from "./auth.interface"
+import { ILoggedInUser, ILoginResponse, IPassword, IRefreshTokenResponse } from "./auth.interface"
 
 const loginUser = async (payload: ILoggedInUser): Promise<ILoginResponse> => {
     const { id, password } = payload;
@@ -62,7 +62,28 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
         refreshToken: newRefreshToken,
     };
 };
+
+const updatePassword = async(user: JwtPayload | null,passwordInfo: IPassword) => {
+    const {oldPassword, changePassword} = passwordInfo;
+
+    const isUserExist = await User.findOne({id: user?.userId}).select('+password');
+
+    if(!isUserExist){
+        throw new ApiError(404, "User is not Found");
+    }
+
+    if(isUserExist.password && !(await User.isPasswordMatched(oldPassword,isUserExist.password))){
+        throw new ApiError(404, "Password is not matched !!");
+    }
+
+    isUserExist.password = changePassword;
+    isUserExist.needsPasswordChange = false;
+
+    isUserExist.save();
+
+}
 export const AuthService = {
     loginUser,
-    refreshToken
+    refreshToken,
+    updatePassword
 }
