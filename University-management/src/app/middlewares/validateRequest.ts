@@ -9,6 +9,7 @@ const validationRequest = (schema: AnyZodObject | ZodEffects<AnyZodObject>) =>
                 params: req.params,
                 cookies: req.cookies,
             })
+            return next()
         } catch (error) {
             next(error)
         }

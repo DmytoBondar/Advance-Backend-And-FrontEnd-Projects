@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\work\\node-mongoose-typescript-advanced-concept\\University-management\\logs\\winston\\successes\\.35d7d74026fee715e72df79c5d13cbc7c0f2fc28-audit.json",
+    "files": [
+        {
+            "date": 1689052233003,
+            "name": "C:\\work\\node-mongoose-typescript-advanced-concept\\University-management\\logs\\winston\\successes\\phu-2023-11-07-11-success.log",
+            "hash": "b10fd9fbd0624ed108c6a40d00af1930bef037d5eea505148acdc1f62354edff"
+        }
+    ],
+    "hashType": "sha256"
+}
